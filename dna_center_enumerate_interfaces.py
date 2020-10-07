@@ -19,7 +19,7 @@ dna = {
 # Create API URL using base URL and API path
 dnac_token_url = dna["url"] + "/dna/system/api/v1/auth/token"
 
-# Authenticate using username and password and store the response
+# Authenticate using username and password, and store the response
 # HTTPBasicAuth encodes username and password delimited by colon follows:
 #   BASE64("username:password") => dXNlcm5hbWU6cGFzc3dvcmQ=
 #   HTTP header: "Authorization": "Basic dXNlcm5hbWU6cGFzc3dvcmQ="
@@ -40,29 +40,29 @@ iface_list_url = dna["url"] + "/api/v1/interface"
 
 # Retrieve device list with a GET request to the URL
 # We now have the token in our headers, so we don't need to
-# Authenticate with username and passwords
+# authenticate with username and passwords
 dev_list_resp = requests.get(url = dev_list_url,
                             headers=dna["headers"],
                             verify=False)
 
 # Loop over devices in response
-for item in dev_list_resp.json()["response"]:
+for dev in dev_list_resp.json()["response"]:
     # Printing hostname, platform, and UUID
     # \n = new line
     # {}'s are replaced in order with the items specified in format()
-    print("\n\nHostname: {}\nPlatform ID: {}\nUUID: {}\nInterfaces:".format(item["hostname"],
-                                                                            item["platformId"],
-                                                                            item["instanceUuid"]))
+    print("\n\nHostname: {}\nPlatform ID: {}\nUUID: {}\nInterfaces:".format(dev["hostname"],
+                                                                            dev["platformId"],
+                                                                            dev["instanceUuid"]))
     # For each device in the outer loop, request interface information
     # Params are appended to URL (e.g, test.co/api/stuff?instanceUuid=cats)
     iface_list_resp = requests.get(url = iface_list_url,
                                 headers=dna["headers"],
-                                params={"instanceUuid": item["instanceUuid"]}, 
+                                params={"instanceUuid": dev["instanceUuid"]}, 
                                 verify=False)
 
     # For each interface in the response, print the port name and UUID
     # {:26} and {:40} set aside 26- and 40-character columns for port
     # name and instanceUuid, respectively. \t = tab
-    for interface in iface_list_resp.json()["response"]:
-        print("\t==> {:26} {:40}".format(interface["portName"], 
-                                         interface["instanceUuid"]))
+    for iface in iface_list_resp.json()["response"]:
+        print("\t==> {:26} {:40}".format(iface["portName"], 
+                                         iface["instanceUuid"]))
