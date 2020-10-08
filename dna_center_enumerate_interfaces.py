@@ -1,3 +1,8 @@
+# This script enumerates all interfaces for all DNAC devices
+# and prints the information to the terminal. It'd be a lot more
+# useful if it stored the info in a dictionary... maybe give it 
+# a shot?
+
 import json
 import requests
 from requests.auth import HTTPBasicAuth
