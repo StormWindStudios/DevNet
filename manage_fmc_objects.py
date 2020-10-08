@@ -43,8 +43,8 @@ def is_ok(s):
 # "Objects" is a list (denoted by square brackets)
 # We will fill it with the objects created by the script
 fmc = { "url": "https://fmcrestapisandbox.cisco.com",
-        "user": "redhatshan",
-        "pass": "mxR34NdM",
+        "user": "DevNetUsername",
+        "pass": "Password",
         "objects": []
     }
 
