@@ -14,7 +14,6 @@ requests.urllib3.disable_warnings()
 # Create a function to handle authentication
 # Takes FMC object, returns x-auth header and domain_uuid
 def authenticate(f):
-
     # Create authentication url
     auth_url = f["url"] + "/api/fmc_platform/v1/auth/generatetoken"
 
@@ -51,7 +50,6 @@ fmc = { "url": "https://fmcrestapisandbox.cisco.com",
 
 # Create a pretty printer to make the JSON readable
 pp = pprint.PrettyPrinter(width=30)
-
 
 # Print current information and pause for user
 print("\nInitial variables:\n")
